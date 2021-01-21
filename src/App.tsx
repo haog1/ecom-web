@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styles from 'assets/css/app.module.css';
+import { API } from 'utils/api';
+import Robot from 'components/Robot';
+import { robots } from 'mockdata/robots.json';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <div className={styles.robotList}>
+        {robots.map(({ id, name, email }) => (
+          <Robot key={id} id={id} name={name} email={email}></Robot>
+        ))}
+      </div>
     </div>
   );
 }
