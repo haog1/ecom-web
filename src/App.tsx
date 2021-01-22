@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from 'assets/css/app.module.css';
 import logo from 'assets/icons/logo.svg';
 import Robot from 'components/Robot';
+import RobotDiscount from 'components/RobotDiscount';
 import { ShoppingCart } from 'components/ShoppingCart';
 import { API } from 'utils/api';
 
@@ -42,9 +43,13 @@ const App: React.FC<Props> = (props: Props) => {
 
       {!loading ? (
         <div className={styles.robotList}>
-          {robots?.map(({ id, name, email }) => (
-            <Robot key={id} id={id} name={name} email={email}></Robot>
-          ))}
+          {robots?.map(({ id, name, email }, index) =>
+            index % 2 === 0 ? (
+              <RobotDiscount key={id} id={id} name={name} email={email} />
+            ) : (
+              <Robot key={id} id={id} name={name} email={email} />
+            ),
+          )}
         </div>
       ) : (
         <p>Loading...</p>
