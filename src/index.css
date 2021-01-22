@@ -7,3 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@font-face {
+  font-family: 'Potta One Regular';
+  src: local('PottaOne-Regular'),
+    url(assets/fonts/PottaOne-Regular.ttf) format('truetype');
+}
