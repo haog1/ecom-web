@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from 'assets/css/app.module.css';
 import logo from 'assets/icons/logo.svg';
 import Robot from 'components/Robot';
-import RobotDiscount from 'components/RobotDiscount';
+import { RobotDiscount } from 'components/RobotDiscount';
 import { ShoppingCart } from 'components/ShoppingCart';
 import { API } from 'utils/api';
 

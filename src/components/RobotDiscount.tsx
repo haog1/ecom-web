@@ -10,7 +10,7 @@ interface RobotProps {
   email: string;
 }
 
-const RobotDiscount: React.FC<RobotProps> = ({ id, name, email }) => {
+export const RobotDiscount: React.FC<RobotProps> = ({ id, name, email }) => {
   const appState = useContext(AppContext);
   const addToCart = useAddToCart();
 
@@ -25,5 +25,3 @@ const RobotDiscount: React.FC<RobotProps> = ({ id, name, email }) => {
     </div>
   );
 };
-
-export default RobotDiscount;
