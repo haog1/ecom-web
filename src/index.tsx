@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 
-import './index.css';
 import 'antd/dist/antd.css';
+import 'assets/css/index.css';
 
 ReactDOM.render(
   <React.StrictMode>
