@@ -14,7 +14,7 @@ interface MenuList {
 
 export const SideMenu: React.FC = () => {
   return (
-    <Menu mode="vertical">
+    <Menu mode="vertical" className={styles['side-menu']}>
       {sideMenuList.map((menu: MenuList, index) => (
         <Menu.SubMenu
           key={`side-menu-${index}`}

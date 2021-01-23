@@ -1,10 +1,19 @@
 .App {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 256rem;
+  margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.08);
 }
 
-.page-content {
-  width: 1230px;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 75vh;
+.App__inner {
+  position: relative;
+  margin: 0 auto;
+  max-width: 144rem;
+}
+
+.App h1,
+.App h2,
+.App h3 {
+  font-family: 'Potta One Regular';
 }

@@ -1,4 +1,5 @@
 .side-menu {
-  width: 256px;
+  margin-right: auto;
+  max-width: 256px;
   border: 5px solid #1976d2 !important;
 }

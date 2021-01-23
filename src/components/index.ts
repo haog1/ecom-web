@@ -1,3 +1,4 @@
+export * from './featuredProductsList';
 export * from './featureCarousel';
 export * from './sideMenu';
 export * from './header';
