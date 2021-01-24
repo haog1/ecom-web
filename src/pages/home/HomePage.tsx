@@ -4,7 +4,7 @@ import React from 'react';
 import { FeatureCarousel, SideMenu, FeaturedProductsList } from 'components';
 import { BaseLayout } from 'layouts/BaseLayout';
 
-import { productList1, productList2, productList3 } from './../../mockup';
+import { productList1, productList2, productList3 } from '../../mockup';
 import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
 import sideImage2 from 'assets/images/mock/sider_2019_02-04.png';
 import sideImage3 from 'assets/images/mock/sider_2019_02-04-2.png';

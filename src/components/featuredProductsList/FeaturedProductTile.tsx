@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, Typography } from 'antd';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 
-interface ProductTileProps {
+interface ProductTileProps extends RouteComponentProps {
   id: number | string;
   size: 'large' | 'small';
   imageSrc: string;
@@ -9,15 +10,18 @@ interface ProductTileProps {
   price: string;
 }
 
-export const FeaturedProductTile: React.FC<ProductTileProps> = ({
+const FeaturedProductTileComponent: React.FC<ProductTileProps> = ({
   id,
   title,
   price,
   imageSrc,
   size,
+  history,
+  location,
+  match,
 }) => {
   return (
-    <div>
+    <Link to={`/product/${id}`}>
       {size === 'large' ? (
         <Image src={imageSrc} height={285} width={490} />
       ) : (
@@ -31,6 +35,8 @@ export const FeaturedProductTile: React.FC<ProductTileProps> = ({
           From A${price}
         </Typography.Text>
       </div>
-    </div>
+    </Link>
   );
 };
+
+export const FeaturedProductTile = withRouter(FeaturedProductTileComponent);
