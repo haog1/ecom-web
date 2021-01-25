@@ -10,6 +10,12 @@ Set up an environment file and copy all variables from .env.example over.
 Run `yarn` to install all dependencies and use `yarn start` to boot up the
 project.
 
+## Lints and Checks
+
+This projects has set up ESLint for checking Javascript styles, Husky for
+checking git commit messages and Prettier for reformatting code styles based on
+given configurations.
+
 ## Commit Message Types - "{type}: {message}"
 
 Commit message types must be one of the following:
