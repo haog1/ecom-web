@@ -1,0 +1,28 @@
+@import '_variables';
+
+html {
+  font-size: 62.5%;
+  max-width: 2560px;
+  margin: 0 auto;
+  background-color: $background-color;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: 'Potta One Regular';
+  src: local('PottaOne-Regular'),
+    url(../fonts/PottaOne-Regular.ttf) format('truetype');
+}

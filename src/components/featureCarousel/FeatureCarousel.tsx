@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './FeatureCarousel.module.css';
+import styles from './FeatureCarousel.module.scss';
 import { Image, Carousel } from 'antd';
 import SlideImage1 from 'assets/images/mock/carousel_1.jpg';
 import SlideImage2 from 'assets/images/mock/carousel_2.jpg';

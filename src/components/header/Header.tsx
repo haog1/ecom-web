@@ -9,7 +9,7 @@ import logo from 'assets/icons/logo.svg';
 import { useSelector } from 'redux/hooks';
 import { changeLanguageActionCreator } from 'redux/language/languageActions';
 
-import styles from './Header.module.css';
+import styles from './Header.module.scss';
 
 interface DefaultMenuLanguageProp {
   name: string;

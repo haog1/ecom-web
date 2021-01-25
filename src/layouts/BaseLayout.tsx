@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'assets/css/Global.module.css';
+import styles from 'assets/scss/Global.module.scss';
 import { Layout } from 'antd';
 import { AppHeader, AppFooter } from 'components';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './FeaturedProductsList.module.css';
+import styles from './FeaturedProductsList.module.scss';
 import { Row, Col, Typography, Divider } from 'antd';
 import { FeaturedProductTile } from './FeaturedProductTile';
 
