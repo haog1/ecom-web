@@ -1,19 +1,56 @@
 import { GlobalOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Input, Layout, Menu, Typography } from 'antd';
-import React from 'react';
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import logo from 'assets/icons/logo.svg';
+import reduxStore from 'redux/store';
 
 import styles from './Header.module.css';
 
+interface LanguageProps {
+  language: string;
+  languageList: {
+    name: string;
+    code: string;
+  }[];
+}
+
 export const AppHeader: React.FC = () => {
   const history = useHistory();
+
+  // Handle change language
+  const handleChangeLanguage = (language: string) => {
+    const action = {
+      type: 'langauges/updateCurrLanguage',
+      payload: {
+        language,
+      },
+    };
+    reduxStore.dispatch(action);
+  };
+
+  // create local state language varable
+  const [currLan, setCurrLan] = useState<LanguageProps>({
+    language: 'en',
+    languageList: [],
+  });
+
+  let languageStore = reduxStore.getState();
+  useEffect(() => {
+    reduxStore.subscribe(() => {
+      const newLanState = reduxStore.getState();
+      setCurrLan({
+        language: newLanState.language,
+        languageList: newLanState.languageList,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    setCurrLan(languageStore);
+    console.log('1', languageStore, currLan);
+  }, [languageStore]);
 
   return (
     <div className={styles['app-header']}>
@@ -24,13 +61,19 @@ export const AppHeader: React.FC = () => {
             style={{ marginLeft: 15 }}
             overlay={
               <Menu>
-                <Menu.Item>中文</Menu.Item>
-                <Menu.Item>English</Menu.Item>
+                {currLan.languageList.map(lan => (
+                  <Menu.Item
+                    key={lan.code}
+                    onClick={() => handleChangeLanguage(lan.code)}
+                  >
+                    {lan.name}
+                  </Menu.Item>
+                ))}
               </Menu>
             }
             icon={<GlobalOutlined />}
           >
-            Language
+            {currLan.language}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
             <Button onClick={() => history.push('signup')}>Signup</Button>
