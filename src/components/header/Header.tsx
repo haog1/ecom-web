@@ -49,7 +49,6 @@ export const AppHeader: React.FC = () => {
 
   useEffect(() => {
     setCurrLan(languageStore);
-    console.log('1', languageStore, currLan);
   }, [languageStore]);
 
   return (

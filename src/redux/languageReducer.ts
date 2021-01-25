@@ -1,4 +1,4 @@
-// reducer is a pure function
+// Reducer is a pure function
 export interface LanguageState {
   language: 'en' | 'zh';
   languageList: {
@@ -17,17 +17,26 @@ export interface LanguageActionProps {
   payload: any;
 }
 
-// state is immutable
+// State is immutable
 export default (
   state: LanguageState = defaultState,
   action: LanguageActionProps,
 ) => {
-  if (action.type === 'langauges/setInitLanguage') {
-    const newState = { ...state, ...action.payload };
-    return newState;
-  } else if (action.type === 'langauges/updateCurrLanguage') {
-    const newState = { ...state, ...action.payload };
-    return newState;
+  let newState = defaultState;
+  switch (action.type) {
+    case 'langauges/setInitLanguage':
+    case 'langauges/updateCurrLanguage':
+      newState = { ...state, ...action.payload };
+      break;
+    case 'languages/addLanguage':
+      newState = {
+        ...state,
+        languageList: [...state.languageList, action.payload],
+      };
+      break;
+    default:
+      newState = state;
+      break;
   }
-  return state; // return new state
+  return newState;
 };
