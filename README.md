@@ -1,4 +1,9 @@
-# Installations
+# React Travelling frontend structural starter template
+
+This project creates a starter template for building modern react travelling
+website.
+
+## Installations
 
 Set up an environment file and copy all variables from .env.example over.
 
