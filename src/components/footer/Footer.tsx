@@ -1,11 +1,14 @@
 import React from 'react';
 import { Layout, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export const AppFooter: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Layout.Footer>
       <Typography.Title level={3} style={{ textAlign: 'center' }}>
-        Copyright @ React Travel
+        {t('footer.detail')}
       </Typography.Title>
     </Layout.Footer>
   );

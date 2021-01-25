@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { HomePage, LoginPage, NotFoundPage, ProductPage } from 'pages';
+import { setInitLanguageCreator } from 'redux/language/languageActions';
 import reduxStore from 'redux/store';
 
 const App: React.FC = () => {
   // Init language
   useEffect(() => {
-    const defaultLanguage = {
-      language: 'en',
-      languageList: [
-        {
-          name: 'English',
-          code: 'en',
-        },
-        {
-          name: '中文',
-          code: 'zh',
-        },
-      ],
-    };
-
-    const action = {
-      type: 'langauges/setInitLanguage',
-      payload: defaultLanguage,
-    };
+    const defaultLanguage = 'en';
+    const action = setInitLanguageCreator(defaultLanguage);
 
     reduxStore.dispatch(action);
   }, []);
