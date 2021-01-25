@@ -2,12 +2,12 @@ import { GlobalOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Input, Layout, Menu, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import logo from 'assets/icons/logo.svg';
+import { useSelector } from 'redux/hooks';
 import { changeLanguageActionCreator } from 'redux/language/languageActions';
-import { LanguageState as LanguageProps } from 'redux/language/languageReducer';
-import reduxStore from 'redux/store';
 
 import styles from './Header.module.css';
 
@@ -30,31 +30,21 @@ const languageList: DefaultMenuLanguageProp[] = [
 export const AppHeader: React.FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
+  const language = useSelector(state => state.language);
+  const dispatch = useDispatch();
 
   // Handle change language
   const handleChangeLanguage = (code: 'en' | 'zh') => {
     const action = changeLanguageActionCreator(code);
-    reduxStore.dispatch(action);
+    dispatch(action);
   };
 
   // create local state language varable
-  const [currLan, setCurrLan] = useState<LanguageProps>({
-    language: 'en',
-  });
+  const [currLanguage, setCurrLanguage] = useState<'en' | 'zh'>('en');
 
-  let languageStore = reduxStore.getState();
   useEffect(() => {
-    reduxStore.subscribe(() => {
-      const newLanState = reduxStore.getState();
-      setCurrLan({
-        language: newLanState.language,
-      });
-    });
+    setCurrLanguage(language);
   }, []);
-
-  useEffect(() => {
-    setCurrLan(languageStore);
-  }, [languageStore]);
 
   return (
     <div className={styles['app-header']}>
@@ -77,7 +67,7 @@ export const AppHeader: React.FC = () => {
             }
             icon={<GlobalOutlined />}
           >
-            {currLan.language}
+            {currLanguage}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
             <Button onClick={() => history.push('signup')}>
