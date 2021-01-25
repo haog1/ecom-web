@@ -7,9 +7,9 @@ import store from 'redux/store';
 import App from './App';
 
 import 'antd/dist/antd.css';
-// import 'assets/css/index.css';
 import 'assets/scss/index.scss';
 import 'i18n/configs';
+import 'utils/axios';
 
 ReactDOM.render(
   <React.StrictMode>

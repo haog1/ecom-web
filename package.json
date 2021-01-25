@@ -8,6 +8,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
     "antd": "^4.10.3",
+    "axios": "^0.21.1",
     "i18next": "^19.8.4",
     "node-sass": "^4.0.0",
     "react": "^17.0.1",
