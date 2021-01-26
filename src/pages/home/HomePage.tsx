@@ -9,38 +9,30 @@ import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
 import { FeatureCarousel, FeaturedProductsList, SideMenu } from 'components';
 import { BaseLayout } from 'layouts/BaseLayout';
 import { API } from 'utils/api';
+import { useSelector } from 'redux/hooks';
+import { useDispatch } from 'react-redux';
+import {
+  fetchFeaturedProductsListFailedAction,
+  fetchFeaturedProductsListStartAction,
+  fetchFeaturedProductsListSuccessAction,
+} from 'redux/featuredProductsList/featuredProductsListActions';
 
-interface State {
-  loading: boolean;
-  error: string | null;
-  productList: any[];
-}
-
-export const HomePage: React.FC<State> = () => {
+export const HomePage: React.FC = () => {
+  const homePageDataFromState = useSelector(
+    state => state.featuredProductsListReducer,
+  );
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [homePageData, setHomePageData] = useState<State>({
-    loading: true,
-    error: null,
-    productList: [],
-  });
 
   const loadPageData = async () => {
+    dispatch(fetchFeaturedProductsListStartAction());
     try {
       const { data } = await axios.get(
         `${API.backendApiUrl}/api/productCollections`,
       );
-      setHomePageData({
-        loading: false,
-        error: null,
-        productList: data,
-      });
+      dispatch(fetchFeaturedProductsListSuccessAction(data));
     } catch (err) {
-      console.log(err, err.data);
-      setHomePageData({
-        loading: false,
-        error: err.message,
-        productList: [],
-      });
+      dispatch(fetchFeaturedProductsListFailedAction(err.message));
     }
   };
 
@@ -48,7 +40,7 @@ export const HomePage: React.FC<State> = () => {
     loadPageData();
   }, []);
 
-  if (homePageData.loading) {
+  if (homePageDataFromState.loading) {
     return (
       <Spin
         style={{
@@ -62,11 +54,13 @@ export const HomePage: React.FC<State> = () => {
     );
   }
 
-  if (homePageData.error) {
+  if (homePageDataFromState.error) {
     return (
       <div>
         <h1>Page error:</h1>
-        <Typography.Text type={'danger'}>{homePageData.error}</Typography.Text>
+        <Typography.Text type={'danger'}>
+          {homePageDataFromState.error}
+        </Typography.Text>
       </div>
     );
   }
@@ -89,7 +83,7 @@ export const HomePage: React.FC<State> = () => {
             </Typography.Title>
           }
           sideImage={sideImage1}
-          products={homePageData.productList[0].touristRoutes}
+          products={homePageDataFromState.productLists[0].touristRoutes}
         />
       </Row>
       <Row align="middle" justify="center">
@@ -100,7 +94,7 @@ export const HomePage: React.FC<State> = () => {
             </Typography.Title>
           }
           sideImage={sideImage2}
-          products={homePageData.productList[1].touristRoutes}
+          products={homePageDataFromState.productLists[1].touristRoutes}
         />
       </Row>
       <Row align="middle" justify="center">
@@ -111,7 +105,7 @@ export const HomePage: React.FC<State> = () => {
             </Typography.Title>
           }
           sideImage={sideImage3}
-          products={homePageData.productList[2].touristRoutes}
+          products={homePageDataFromState.productLists[2].touristRoutes}
         />
       </Row>
     </BaseLayout>

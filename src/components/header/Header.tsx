@@ -30,7 +30,7 @@ const languageList: DefaultMenuLanguageProp[] = [
 export const AppHeader: React.FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const language = useSelector(state => state.language);
+  const language = useSelector(state => state.languageReducer.language);
   const dispatch = useDispatch();
 
   // Handle change language
