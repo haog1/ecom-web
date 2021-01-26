@@ -8,14 +8,9 @@ import sideImage2 from 'assets/images/mock/sider_2019_02-04.png';
 import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
 import { FeatureCarousel, FeaturedProductsList, SideMenu } from 'components';
 import { BaseLayout } from 'layouts/BaseLayout';
-import { API } from 'utils/api';
 import { useSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
-import {
-  fetchFeaturedProductsListFailedAction,
-  fetchFeaturedProductsListStartAction,
-  fetchFeaturedProductsListSuccessAction,
-} from 'redux/featuredProductsList/featuredProductsListActions';
+import { getHomePagedataCreator } from 'redux/featuredProductsList/featuredProductsListActions';
 
 export const HomePage: React.FC = () => {
   const homePageDataFromState = useSelector(
@@ -24,17 +19,7 @@ export const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const loadPageData = async () => {
-    dispatch(fetchFeaturedProductsListStartAction());
-    try {
-      const { data } = await axios.get(
-        `${API.backendApiUrl}/api/productCollections`,
-      );
-      dispatch(fetchFeaturedProductsListSuccessAction(data));
-    } catch (err) {
-      dispatch(fetchFeaturedProductsListFailedAction(err.message));
-    }
-  };
+  const loadPageData = () => dispatch(getHomePagedataCreator());
 
   useEffect(() => {
     loadPageData();

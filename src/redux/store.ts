@@ -1,14 +1,15 @@
-import { createStore, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
-import languageReducer from 'redux/language/languageReducer';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import featuredProductsListReducer from 'redux/featuredProductsList/featuredProductsListReducer';
+import languageReducer from 'redux/language/languageReducer';
 
 const rootReducer = combineReducers({
   languageReducer,
   featuredProductsListReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof store.getState>;
 
