@@ -1,6 +1,5 @@
 import { Col, Row, Spin, Typography } from 'antd';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import sideImage3 from 'assets/images/mock/sider_2019_02-04-2.png';

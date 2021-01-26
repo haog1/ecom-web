@@ -1,5 +1,3 @@
-import i18n from 'i18next';
-
 import {
   ADD_LANGUAGE,
   CHANGE_LANGUAGE,
@@ -36,9 +34,9 @@ export default (
   }
 
   // Side effect
-  if (newState.language !== state.language) {
-    i18n.changeLanguage(newState.language);
-  }
+  // if (newState.language !== state.language) {
+  //   i18n.changeLanguage(newState.language);
+  // }
 
   return newState;
 };
