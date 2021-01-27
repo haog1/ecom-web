@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import { RouteComponentProps, useParams } from 'react-router-dom';
 import { useSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
-import { loadProductDetailsCreator } from 'redux/singleProductDetails/singleProductDetailsActions';
-import { Spin, Typography } from 'antd';
+import { Col, Row, Spin, Typography, DatePicker, Space } from 'antd';
+import {
+  SingleProductDetailsSlice,
+  getProductDetailsCreator,
+} from 'redux/singleProductDetails/slice';
+
+const { RangePicker } = DatePicker;
 
 interface MatchParams {
   touristRouteId: string;
@@ -15,10 +20,10 @@ export const ProductPage: React.FC<
   const { touristRouteId } = useParams<MatchParams>();
   const dispatch = useDispatch();
   const productDetailsFromState = useSelector(
-    state => state.singleProductDetailsReducer,
+    state => state.singleProductReducer,
   );
-  const loadPageData = () =>
-    dispatch(loadProductDetailsCreator(touristRouteId));
+
+  const loadPageData = () => dispatch(getProductDetailsCreator(touristRouteId));
 
   useEffect(() => {
     loadPageData();
@@ -49,5 +54,16 @@ export const ProductPage: React.FC<
     );
   }
 
-  return <h1>{productDetailsFromState.name}</h1>;
+  return (
+    <div className="">
+      <div>
+        <Row>
+          <Col span={13}></Col>
+          <Col span={11}>
+            <RangePicker open />
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
 };
