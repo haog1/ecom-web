@@ -3,7 +3,7 @@ import { Button, Dropdown, Input, Layout, Menu, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import logo from 'assets/icons/logo.svg';
 import { useSelector } from 'redux/hooks';
@@ -80,12 +80,12 @@ export const AppHeader: React.FC = () => {
         </div>
       </div>
       <Layout.Header className={styles['main-header']}>
-        <span onClick={() => history.push('/')}>
+        <Link to="/">
           <img src={logo} alt="logo" className={styles['App-logo']} />
           <Typography.Title level={3} className={styles.title}>
             {t('header.title')}
           </Typography.Title>
-        </span>
+        </Link>
         <Input.Search
           placeholder={'请输入旅游目的地、主题、或关键字'}
           className={styles['search-input']}

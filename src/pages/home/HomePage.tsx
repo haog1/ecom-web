@@ -6,7 +6,6 @@ import sideImage3 from 'assets/images/mock/sider_2019_02-04-2.png';
 import sideImage2 from 'assets/images/mock/sider_2019_02-04.png';
 import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
 import { FeatureCarousel, FeaturedProductsList, SideMenu } from 'components';
-import { BaseLayout } from 'layouts/BaseLayout';
 import { useSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
 import { getHomePagedataCreator } from 'redux/featuredProductsList/featuredProductsListActions';
@@ -50,7 +49,7 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <BaseLayout>
+    <React.Fragment>
       <Row align="middle" justify="center" style={{ marginTop: 20 }}>
         <Col span={6}>
           <SideMenu />
@@ -92,6 +91,6 @@ export const HomePage: React.FC = () => {
           products={homePageDataFromState.productLists[2].touristRoutes}
         />
       </Row>
-    </BaseLayout>
+    </React.Fragment>
   );
 };
