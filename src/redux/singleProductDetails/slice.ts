@@ -14,17 +14,31 @@ const initialState: SingleProductDetailsState = {
   error: null,
 };
 
+export const getProductDetailsCreator = createAsyncThunk(
+  'singleProductDetails/getProductDetailsCreator',
+  async (routerId: string, thunkAPI) => {
+    const { data } = await axios.get(
+      `${API.backendApiUrl}/api/touristRoutes/${routerId}`,
+    );
+    return data;
+  },
+);
+
 /**
  * reducers in RTK is a combo of actions and reducers
  * No switch needed
  * Not pure fuctions anymore
  */
-const reducers = {
-  fetchStart: (state: SingleProductDetailsState) => {
+const reducers = {};
+
+const extraReducers = {
+  [getProductDetailsCreator.pending.type]: (
+    state: SingleProductDetailsState,
+  ) => {
     // immer - looks like mutable but still follows immutable rules
     state.loading = true;
   },
-  fetchSuccess: (
+  [getProductDetailsCreator.fulfilled.type]: (
     state: SingleProductDetailsState,
     action: PayloadAction<string | null>,
   ) => {
@@ -32,7 +46,7 @@ const reducers = {
     state.data = action.payload;
     state.error = null;
   },
-  fetchFail: (
+  [getProductDetailsCreator.rejected.type]: (
     state: SingleProductDetailsState,
     action: PayloadAction<string | null>,
   ) => {
@@ -41,28 +55,6 @@ const reducers = {
     state.data = [];
   },
 };
-
-const extraReducers = {};
-
-export const getProductDetailsCreator = createAsyncThunk(
-  'singleProductDetails/getProductDetailsCreator',
-  async (routerId: string, thunkAPI) => {
-    try {
-      if (!routerId) {
-        throw new Error('Missing product id');
-      }
-      thunkAPI.dispatch(SingleProductDetailsSlice.actions.fetchStart());
-      const { data } = await axios.get(
-        `${API.backendApiUrl}/api/touristRoutes/${routerId}`,
-      );
-      thunkAPI.dispatch(SingleProductDetailsSlice.actions.fetchSuccess(data));
-    } catch (err) {
-      thunkAPI.dispatch(
-        SingleProductDetailsSlice.actions.fetchFail(err.message),
-      );
-    }
-  },
-);
 
 export const SingleProductDetailsSlice = createSlice({
   name: 'singleProductDetails',
