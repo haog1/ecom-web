@@ -1,9 +1,9 @@
-import { FeaturedProductsListSlice as featuredProductsListReducer } from 'redux/slices/featuredProductsList';
-import { ChangeLanguageSlice as languageReducer } from 'redux/slices/language';
-import { SingleProductDetailsSlice as singleProductReducer } from 'redux/slices/singleProductDetails';
+import { FeaturedProductsListSlice } from 'redux/slices/featuredProductsList';
+import { ChangeLanguageSlice } from 'redux/slices/language';
+import { SingleProductDetailsSlice } from 'redux/slices/singleProductDetails';
 
-export const slicers = {
-  languageReducer,
-  featuredProductsListReducer,
-  singleProductReducer,
+export default {
+  featuredProductsListReducer: FeaturedProductsListSlice.reducer,
+  singleProductReducer: SingleProductDetailsSlice.reducer,
+  languageReducer: ChangeLanguageSlice.reducer,
 };

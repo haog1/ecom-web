@@ -1,15 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { middlewares } from 'middlewares';
-import { FeaturedProductsListSlice } from 'redux/slices/featuredProductsList';
-import { ChangeLanguageSlice } from 'redux/slices/language';
-import { SingleProductDetailsSlice } from 'redux/slices/singleProductDetails';
+import { middlewares } from 'redux/middlewares';
+import reducers from 'redux/slices';
 
-const rootReducer = combineReducers({
-  featuredProductsListReducer: FeaturedProductsListSlice.reducer,
-  singleProductReducer: SingleProductDetailsSlice.reducer,
-  languageReducer: ChangeLanguageSlice.reducer,
-});
+const rootReducer = combineReducers(reducers);
 
 const store = configureStore({
   reducer: rootReducer,
