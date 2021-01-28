@@ -1,14 +1,14 @@
 import { Col, Row, Spin, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import sideImage3 from 'assets/images/mock/sider_2019_02-04-2.png';
 import sideImage2 from 'assets/images/mock/sider_2019_02-04.png';
 import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
 import { FeatureCarousel, FeaturedProductsList, SideMenu } from 'components';
 import { useSelector } from 'redux/hooks';
-import { useDispatch } from 'react-redux';
-import { getHomePagedataCreator } from 'redux/featuredProductsList/featuredProductsListActions';
+import { getProductsListCreator } from 'redux/slices/featuredProductsList';
 
 export const HomePage: React.FC = () => {
   const homePageDataFromState = useSelector(
@@ -17,7 +17,7 @@ export const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const loadPageData = () => dispatch(getHomePagedataCreator());
+  const loadPageData = () => dispatch(getProductsListCreator());
 
   useEffect(() => {
     loadPageData();
@@ -66,7 +66,7 @@ export const HomePage: React.FC = () => {
             </Typography.Title>
           }
           sideImage={sideImage1}
-          products={homePageDataFromState.productLists[0].touristRoutes}
+          products={homePageDataFromState.data[0].touristRoutes}
         />
       </Row>
       <Row align="middle" justify="center">
@@ -77,7 +77,7 @@ export const HomePage: React.FC = () => {
             </Typography.Title>
           }
           sideImage={sideImage2}
-          products={homePageDataFromState.productLists[1].touristRoutes}
+          products={homePageDataFromState.data[1].touristRoutes}
         />
       </Row>
       <Row align="middle" justify="center">
@@ -88,7 +88,7 @@ export const HomePage: React.FC = () => {
             </Typography.Title>
           }
           sideImage={sideImage3}
-          products={homePageDataFromState.productLists[2].touristRoutes}
+          products={homePageDataFromState.data[2].touristRoutes}
         />
       </Row>
     </React.Fragment>

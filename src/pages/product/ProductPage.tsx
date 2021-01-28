@@ -1,12 +1,10 @@
+import { Col, DatePicker, Row, Spin, Typography } from 'antd';
 import React, { useEffect } from 'react';
-import { RouteComponentProps, useParams } from 'react-router-dom';
-import { useSelector } from 'redux/hooks';
 import { useDispatch } from 'react-redux';
-import { Col, Row, Spin, Typography, DatePicker, Space } from 'antd';
-import {
-  SingleProductDetailsSlice,
-  getProductDetailsCreator,
-} from 'redux/singleProductDetails/slice';
+import { RouteComponentProps, useParams } from 'react-router-dom';
+
+import { useSelector } from 'redux/hooks';
+import { getProductDetailsCreator } from 'redux/slices/singleProductDetails';
 
 const { RangePicker } = DatePicker;
 

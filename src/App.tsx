@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import { BaseLayout } from 'layouts/BaseLayout';
 import { HomePage, LoginPage, NotFoundPage, ProductPage } from 'pages';
-import { setInitLanguageCreator } from 'redux/language/languageActions';
+import { ChangeLanguageSlice } from 'redux/slices/language';
 import reduxStore from 'redux/store';
 
 const App: React.FC = () => {
   // Init language
   useEffect(() => {
     const defaultLanguage = 'en';
-    const action = setInitLanguageCreator(defaultLanguage);
-
-    reduxStore.dispatch(action);
+    reduxStore.dispatch(
+      ChangeLanguageSlice.actions.switchLanguage(defaultLanguage),
+    );
   }, []);
 
   return (

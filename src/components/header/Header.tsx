@@ -7,13 +7,13 @@ import { Link, useHistory } from 'react-router-dom';
 
 import logo from 'assets/icons/logo.svg';
 import { useSelector } from 'redux/hooks';
-import { changeLanguageActionCreator } from 'redux/language/languageActions';
+import { ChangeLanguageSlice } from 'redux/slices/language';
 
 import styles from './Header.module.scss';
 
 interface DefaultMenuLanguageProp {
   name: string;
-  code: 'en' | 'zh';
+  code: string;
 }
 
 const languageList: DefaultMenuLanguageProp[] = [
@@ -30,21 +30,12 @@ const languageList: DefaultMenuLanguageProp[] = [
 export const AppHeader: React.FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const language = useSelector(state => state.languageReducer.language);
+  const languageReducer = useSelector(state => state.languageReducer);
   const dispatch = useDispatch();
 
-  // Handle change language
-  const handleChangeLanguage = (code: 'en' | 'zh') => {
-    const action = changeLanguageActionCreator(code);
-    dispatch(action);
+  const handleChangeLanguage = (lang: string) => {
+    dispatch(ChangeLanguageSlice.actions.switchLanguage(lang));
   };
-
-  // create local state language varable
-  const [currLanguage, setCurrLanguage] = useState<'en' | 'zh'>('en');
-
-  useEffect(() => {
-    setCurrLanguage(language);
-  }, []);
 
   return (
     <div className={styles['app-header']}>
@@ -67,7 +58,7 @@ export const AppHeader: React.FC = () => {
             }
             icon={<GlobalOutlined />}
           >
-            {currLanguage}
+            {languageReducer.language}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
             <Button onClick={() => history.push('signup')}>

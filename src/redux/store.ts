@@ -1,16 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
 
 import { middlewares } from 'middlewares';
-import { applyMiddleware, createStore } from 'redux';
-import featuredProductsListReducer from 'redux/featuredProductsList/featuredProductsListReducer';
-import languageReducer from 'redux/language/languageReducer';
-import { SingleProductDetailsSlice } from 'redux/singleProductDetails/slice';
+import { FeaturedProductsListSlice } from 'redux/slices/featuredProductsList';
+import { ChangeLanguageSlice } from 'redux/slices/language';
+import { SingleProductDetailsSlice } from 'redux/slices/singleProductDetails';
 
 const rootReducer = combineReducers({
-  languageReducer,
-  featuredProductsListReducer,
+  featuredProductsListReducer: FeaturedProductsListSlice.reducer,
   singleProductReducer: SingleProductDetailsSlice.reducer,
+  languageReducer: ChangeLanguageSlice.reducer,
 });
 
 const store = configureStore({
