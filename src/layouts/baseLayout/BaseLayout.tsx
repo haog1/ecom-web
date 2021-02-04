@@ -5,12 +5,12 @@ import { AppHeader, AppFooter } from 'components';
 
 export const BaseLayout: React.FC<ReactNode> = ({ children }) => {
   return (
-    <div className={styles.App}>
+    <Layout className={styles.App}>
       <AppHeader />
       <Layout.Content className={styles.App__inner}>
         <div children={children} />
       </Layout.Content>
       <AppFooter />
-    </div>
+    </Layout>
   );
 };
