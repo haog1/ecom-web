@@ -1,4 +1,4 @@
-import { Col, Row, Spin, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -6,7 +6,13 @@ import { useDispatch } from 'react-redux';
 import sideImage3 from 'assets/images/mock/sider_2019_02-04-2.png';
 import sideImage2 from 'assets/images/mock/sider_2019_02-04.png';
 import sideImage1 from 'assets/images/mock/sider_2019_12-09.png';
-import { FeatureCarousel, FeaturedProductsList, SideMenu } from 'components';
+import {
+  Error,
+  FeatureCarousel,
+  FeaturedProductsList,
+  Loading,
+  SideMenu,
+} from 'components';
 import { useSelector } from 'redux/hooks';
 import { getProductsListCreator } from 'redux/slices/featuredProductsList';
 
@@ -24,28 +30,11 @@ export const HomePage: React.FC = () => {
   }, []);
 
   if (homePageDataFromState.loading) {
-    return (
-      <Spin
-        style={{
-          zIndex: 1,
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-    );
+    return <Loading />;
   }
 
   if (homePageDataFromState.error) {
-    return (
-      <div>
-        <h1>Page error:</h1>
-        <Typography.Text type={'danger'}>
-          {homePageDataFromState.error}
-        </Typography.Text>
-      </div>
-    );
+    return <Error>{homePageDataFromState.error}</Error>;
   }
 
   return (

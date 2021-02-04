@@ -2,7 +2,13 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { BaseLayout } from 'layouts/BaseLayout';
-import { HomePage, LoginPage, NotFoundPage, ProductPage } from 'pages';
+import {
+  HomePage,
+  LoginPage,
+  NotFoundPage,
+  ProductPage,
+  SearchPage,
+} from 'pages';
 import { ChangeLanguageSlice } from 'redux/slices/language';
 import reduxStore from 'redux/store';
 
@@ -22,6 +28,7 @@ const App: React.FC = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/product/:touristRouteId" component={ProductPage} />
+          <Route path="/search/:keywords?" component={SearchPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </BaseLayout>

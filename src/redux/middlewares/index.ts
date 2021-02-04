@@ -1,4 +1,4 @@
-import { actionLogMiddleware } from 'middlewares/actionLog';
-import { changeLanguageMiddleware } from 'middlewares/changeLanguage';
+import { actionLogMiddleware } from 'redux/middlewares/actionLog';
+import { changeLanguageMiddleware } from 'redux/middlewares/changeLanguage';
 
 export const middlewares = [actionLogMiddleware, changeLanguageMiddleware];

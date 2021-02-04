@@ -1,8 +1,9 @@
-import { Col, DatePicker, Row, Spin, Typography } from 'antd';
+import { Col, DatePicker, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { RouteComponentProps, useParams } from 'react-router-dom';
 
+import { Loading } from 'components';
 import { useSelector } from 'redux/hooks';
 import { getProductDetailsCreator } from 'redux/slices/singleProductDetails';
 
@@ -28,17 +29,7 @@ export const ProductPage: React.FC<
   }, []);
 
   if (productDetailsFromState.loading) {
-    return (
-      <Spin
-        style={{
-          zIndex: 1,
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-    );
+    return <Loading />;
   }
 
   if (productDetailsFromState.error) {
