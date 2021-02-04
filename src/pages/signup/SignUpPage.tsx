@@ -1,5 +1,8 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react';
+import axios from 'axios';
+import { API } from 'utils/api';
+import { Link, useHistory } from 'react-router-dom';
 
 const layout = {
   labelCol: { span: 4 },
@@ -9,9 +12,21 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const SignUpPage: React.FC = props => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+export const SignUpPage = () => {
+  const history = useHistory();
+
+  const onFinish = async (values: any) => {
+    try {
+      history.push('/login');
+      await axios.post(`${API.backendApiUrl}/auth/register`, {
+        email: values.username,
+        password: values.password,
+        confirmPassword: values.passwordConfirm,
+      });
+      history.push('/login');
+    } catch (err) {
+      alert('Failed to sign up');
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -58,6 +73,10 @@ export const SignUpPage: React.FC = props => {
         ]}
       >
         <Input.Password />
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Link to="/login" children={'Login'} />
       </Form.Item>
 
       <Form.Item {...tailLayout}>

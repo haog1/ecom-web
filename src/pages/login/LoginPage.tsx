@@ -1,5 +1,6 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const layout = {
   labelCol: { span: 4 },
@@ -44,6 +45,10 @@ export const LoginPage: React.FC = props => {
 
       <Form.Item {...tailLayout} name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Link to="/signup" children={'Singup'} />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
