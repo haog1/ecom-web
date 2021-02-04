@@ -61,10 +61,10 @@ export const AppHeader: React.FC = () => {
             {languageReducer.language}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
-            <Button onClick={() => history.push('signup')}>
+            <Button onClick={() => history.push('/signup')}>
               {t('header.signup')}
             </Button>
-            <Button onClick={() => history.push('login')}>
+            <Button onClick={() => history.push('/login')}>
               {t('header.login')}
             </Button>
           </Button.Group>

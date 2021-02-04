@@ -7,3 +7,4 @@ export * from './loading';
 export * from './error';
 export * from './filter';
 export * from './productList';
+export * from './layoutRoute';
