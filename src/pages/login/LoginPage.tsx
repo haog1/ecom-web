@@ -1,6 +1,10 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+
+import { useSelector } from 'redux/hooks';
+import { requestLogin } from 'redux/slices/login';
 
 const layout = {
   labelCol: { span: 4 },
@@ -11,8 +15,23 @@ const tailLayout = {
 };
 
 export const LoginPage: React.FC = props => {
+  const loginPageData = useSelector(state => state.userLoginReducer);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loginPageData.token) {
+      history.push('/');
+    }
+  }, [loginPageData]);
+
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    dispatch(
+      requestLogin({
+        email: values.username,
+        password: values.password,
+      }),
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -52,7 +71,11 @@ export const LoginPage: React.FC = props => {
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loginPageData.loading}
+        >
           Login
         </Button>
       </Form.Item>

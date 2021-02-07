@@ -3,9 +3,12 @@ import { ChangeLanguageSlice } from 'redux/slices/language';
 import { ProductSearchSlice } from 'redux/slices/search';
 import { SingleProductDetailsSlice } from 'redux/slices/singleProductDetails';
 
+import { UserLoginSlice } from './login';
+
 export default {
   featuredProductsListReducer: FeaturedProductsListSlice.reducer,
   singleProductReducer: SingleProductDetailsSlice.reducer,
   languageReducer: ChangeLanguageSlice.reducer,
   productSearchReducer: ProductSearchSlice.reducer,
+  userLoginReducer: UserLoginSlice.reducer,
 };

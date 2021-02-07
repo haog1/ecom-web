@@ -10,7 +10,7 @@ interface SingleProductDetailsState {
 }
 
 const initialState: SingleProductDetailsState = {
-  loading: false,
+  loading: true,
   data: [],
   error: null,
 };
