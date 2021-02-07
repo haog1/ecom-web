@@ -32,12 +32,13 @@ export const requestLogin = createAsyncThunk(
   },
 );
 
-/**
- * reducers in RTK is a combo of actions and reducers
- * No switch needed
- * Not pure fuctions anymore
- */
-const reducers = {};
+const reducers = {
+  logout: (state: UserLoginState) => {
+    state.token = null;
+    state.loading = false;
+    state.error = null;
+  },
+};
 
 const extraReducers = {
   [requestLogin.pending.type]: (state: UserLoginState) => {

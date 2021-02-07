@@ -1,15 +1,20 @@
 import { GlobalOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Input, Layout, Menu, Typography } from 'antd';
+import jwt_decode, { JwtPayload as DefaultJwtPayload } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-
+import { UserLoginSlice } from 'redux/slices/login';
 import logo from 'assets/icons/logo.svg';
 import { useSelector } from 'redux/hooks';
 import { ChangeLanguageSlice } from 'redux/slices/language';
 
 import styles from './Header.module.scss';
+
+interface JwtPayload extends DefaultJwtPayload {
+  username: string;
+}
 
 interface DefaultMenuLanguageProp {
   name: string;
@@ -31,10 +36,25 @@ export const AppHeader: React.FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const languageReducer = useSelector(state => state.languageReducer);
+  const loginToken = useSelector(state => state.userLoginReducer.token);
   const dispatch = useDispatch();
+  const [username, setUsername] = useState<string>('');
+
+  useEffect(() => {
+    if (loginToken) {
+      const token = jwt_decode<JwtPayload>(loginToken);
+      setUsername(token.username);
+    }
+  }, [loginToken]);
 
   const handleChangeLanguage = (lang: string) => {
     dispatch(ChangeLanguageSlice.actions.switchLanguage(lang));
+  };
+
+  const onLogout = () => {
+    dispatch(UserLoginSlice.actions.logout());
+    history.push('/');
+    window.location.reload();
   };
 
   return (
@@ -60,14 +80,25 @@ export const AppHeader: React.FC = () => {
           >
             {languageReducer.language}
           </Dropdown.Button>
-          <Button.Group className={styles['button-group']}>
-            <Button onClick={() => history.push('/signup')}>
-              {t('header.signup')}
-            </Button>
-            <Button onClick={() => history.push('/login')}>
-              {t('header.login')}
-            </Button>
-          </Button.Group>
+          {loginToken ? (
+            <Button.Group className={styles['button-group']}>
+              <span>
+                {t('header.welcome')}
+                <Typography.Text strong>{username}</Typography.Text>
+              </span>
+              <Button>{t('header.shoppingCart')}</Button>
+              <Button onClick={onLogout}>{t('header.signOut')}</Button>
+            </Button.Group>
+          ) : (
+            <Button.Group className={styles['button-group']}>
+              <Button onClick={() => history.push('/signup')}>
+                {t('header.signup')}
+              </Button>
+              <Button onClick={() => history.push('/login')}>
+                {t('header.login')}
+              </Button>
+            </Button.Group>
+          )}
         </div>
       </div>
       <Layout.Header className={styles['main-header']}>
