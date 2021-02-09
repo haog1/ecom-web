@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  RouteProps,
+  Switch,
+} from 'react-router-dom';
 
+import { LayoutRoute } from 'components';
 import { BaseLayout, UserLayout } from 'layouts';
 import {
   HomePage,
@@ -8,17 +15,41 @@ import {
   NotFoundPage,
   ProductPage,
   SearchPage,
+  ShoppingCartPage,
   SignUpPage,
 } from 'pages';
+import { useSelector } from 'redux/hooks';
 import { ChangeLanguageSlice } from 'redux/slices/language';
 import reduxStore from 'redux/store';
-import { LayoutRoute } from 'components';
+
+interface PrivateRouteProps extends RouteProps {
+  component: React.FC;
+  isAuthenticated: boolean;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component,
+  isAuthenticated,
+  ...rest
+}) => {
+  const routeComponent = (props: any) => {
+    return isAuthenticated ? (
+      React.createElement(component, props)
+    ) : (
+      <Redirect to={{ pathname: '/login' }} />
+    );
+  };
+
+  return <Route render={routeComponent} {...rest} />;
+};
 
 const App: React.FC = () => {
+  const token = useSelector(state => state.userLoginReducer.token);
+
   // Init language
   useEffect(() => {
     const defaultLanguage = 'en';
-    reduxStore.dispatch(
+    reduxStore.store.dispatch(
       ChangeLanguageSlice.actions.switchLanguage(defaultLanguage),
     );
   }, []);
@@ -48,6 +79,12 @@ const App: React.FC = () => {
                 exact
               />
               <Route path="/search/:keywords?" component={SearchPage} />
+              <PrivateRoute
+                isAuthenticated={token ? true : false}
+                path="/shopping-cart"
+                component={ShoppingCartPage}
+              />
+              {/* This must be the last component */}
               <Route component={NotFoundPage} />
             </Switch>
           </BaseLayout>

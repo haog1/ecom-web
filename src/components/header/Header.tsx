@@ -5,10 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { UserLoginSlice } from 'redux/slices/login';
+
 import logo from 'assets/icons/logo.svg';
 import { useSelector } from 'redux/hooks';
 import { ChangeLanguageSlice } from 'redux/slices/language';
+import { UserLoginSlice } from 'redux/slices/login';
 
 import styles from './Header.module.scss';
 
@@ -54,7 +55,6 @@ export const AppHeader: React.FC = () => {
   const onLogout = () => {
     dispatch(UserLoginSlice.actions.logout());
     history.push('/');
-    window.location.reload();
   };
 
   return (
@@ -86,7 +86,13 @@ export const AppHeader: React.FC = () => {
                 {t('header.welcome')}
                 <Typography.Text strong>{username}</Typography.Text>
               </span>
-              <Button>{t('header.shoppingCart')}</Button>
+              <Button
+                onClick={() => {
+                  history.push('/shopping-cart');
+                }}
+              >
+                {t('header.shoppingCart')}
+              </Button>
               <Button onClick={onLogout}>{t('header.signOut')}</Button>
             </Button.Group>
           ) : (
