@@ -65,7 +65,7 @@ export const checkout = createAsyncThunk(
   'shoppingCart/checkout',
   async (token: string, thunkAPI) => {
     const { data } = await axios.post(
-      `${API.backendApiUrl}/api/shoppingcart/items`,
+      `${API.backendApiUrl}/api/shoppingcart/checkout`,
       null,
       {
         headers: {
