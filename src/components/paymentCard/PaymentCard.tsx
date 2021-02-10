@@ -54,14 +54,14 @@ export const PaymentCard: React.FC<PropsType> = ({
     {
       key: 1,
       item: '原价',
-      amount: <Text delete>¥ {originalPrice}</Text>,
+      amount: <Text delete>A$ {originalPrice}</Text>,
     },
     {
       key: 3,
       item: '现价',
       amount: (
         <Title type="danger" level={2}>
-          ¥ {price}
+          A$ {price}
         </Title>
       ),
     },
@@ -81,11 +81,11 @@ export const PaymentCard: React.FC<PropsType> = ({
         </Button>,
       ]}
     >
-      {/* <Skeleton loading={loading} active>
+      <Skeleton loading={loading} active>
         <Meta
           title={<Title level={2}>总计</Title>}
           description={
-            <Table<Item>
+            <Table
               columns={columns}
               dataSource={paymentData}
               showHeader={false}
@@ -95,7 +95,7 @@ export const PaymentCard: React.FC<PropsType> = ({
             />
           }
         />
-      </Skeleton> */}
+      </Skeleton>
     </Card>
   );
 };

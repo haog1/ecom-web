@@ -39,6 +39,12 @@ export const AppHeader: React.FC = () => {
   const languageReducer = useSelector(state => state.languageReducer);
   const loginToken = useSelector(state => state.userLoginReducer.token);
   const dispatch = useDispatch();
+  const shoppingCartItems = useSelector(
+    state => state.shoppingCartReducer.items,
+  );
+  const shoppingCartLoading = useSelector(
+    state => state.shoppingCartReducer.loading,
+  );
   const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
@@ -87,11 +93,12 @@ export const AppHeader: React.FC = () => {
                 <Typography.Text strong>{username}</Typography.Text>
               </span>
               <Button
+                loading={shoppingCartLoading}
                 onClick={() => {
                   history.push('/shopping-cart');
                 }}
               >
-                {t('header.shoppingCart')}
+                {t('header.shoppingCart')}({shoppingCartItems.length})
               </Button>
               <Button onClick={onLogout}>{t('header.signOut')}</Button>
             </Button.Group>

@@ -1,11 +1,12 @@
-import { Col, DatePicker, Row, Typography } from 'antd';
+import { Button, Col, DatePicker, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { RouteComponentProps, useParams } from 'react-router-dom';
-
 import { Loading } from 'components';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'redux/hooks';
 import { getProductDetailsCreator } from 'redux/slices/singleProductDetails';
+import { addShoppingCartItem } from 'redux/slices/shoppingCart';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 const { RangePicker } = DatePicker;
 
@@ -16,6 +17,10 @@ interface MatchParams {
 export const ProductPage: React.FC<
   RouteComponentProps<MatchParams>
 > = props => {
+  const token = useSelector(state => state.userLoginReducer.token);
+  const shoppingCartLoading = useSelector(
+    state => state.shoppingCartReducer.loading,
+  );
   const { touristRouteId } = useParams<MatchParams>();
   const dispatch = useDispatch();
   const productDetailsFromState = useSelector(
@@ -36,9 +41,11 @@ export const ProductPage: React.FC<
     return (
       <div>
         <h1>Page error:</h1>
-        <Typography.Text type={'danger'}>
-          {productDetailsFromState.error}
-        </Typography.Text>
+        <Row>
+          <Typography.Text type={'danger'}>
+            {productDetailsFromState.error}
+          </Typography.Text>
+        </Row>
       </div>
     );
   }
@@ -46,6 +53,31 @@ export const ProductPage: React.FC<
   return (
     <div className="">
       <div>
+        <Row>
+          <Button
+            style={{
+              marginTop: 50,
+              marginBottom: 30,
+              display: 'block',
+            }}
+            type="primary"
+            danger
+            loading={shoppingCartLoading}
+            onClick={() => {
+              if (token) {
+                dispatch(
+                  addShoppingCartItem({
+                    token,
+                    touristRouteId: productDetailsFromState.data.id,
+                  }),
+                );
+              }
+            }}
+          >
+            <ShoppingCartOutlined />
+            Add to Cart
+          </Button>
+        </Row>
         <Row>
           <Col span={13}></Col>
           <Col span={11}>

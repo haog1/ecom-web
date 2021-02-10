@@ -19,8 +19,10 @@ import {
   SignUpPage,
 } from 'pages';
 import { useSelector } from 'redux/hooks';
+import { useDispatch } from 'react-redux';
 import { ChangeLanguageSlice } from 'redux/slices/language';
 import reduxStore from 'redux/store';
+import { getShoppingCartItems } from 'redux/slices/shoppingCart';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.FC;
@@ -45,6 +47,12 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
 const App: React.FC = () => {
   const token = useSelector(state => state.userLoginReducer.token);
+
+  useEffect(() => {
+    if (token) {
+      reduxStore.store.dispatch(getShoppingCartItems(token));
+    }
+  }, [token]);
 
   // Init language
   useEffect(() => {
