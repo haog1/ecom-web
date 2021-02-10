@@ -13,6 +13,7 @@ import {
   HomePage,
   LoginPage,
   NotFoundPage,
+  PlaceOrderPage,
   ProductPage,
   SearchPage,
   ShoppingCartPage,
@@ -91,6 +92,11 @@ const App: React.FC = () => {
                 isAuthenticated={token ? true : false}
                 path="/shopping-cart"
                 component={ShoppingCartPage}
+              />
+              <PrivateRoute
+                isAuthenticated={token ? true : false}
+                path="/place-order"
+                component={PlaceOrderPage}
               />
               {/* This must be the last component */}
               <Route component={NotFoundPage} />

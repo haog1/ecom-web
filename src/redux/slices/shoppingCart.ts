@@ -61,6 +61,22 @@ export const clearShoppingCartItem = createAsyncThunk(
   },
 );
 
+export const checkout = createAsyncThunk(
+  'shoppingCart/checkout',
+  async (token: string, thunkAPI) => {
+    const { data } = await axios.post(
+      `${API.backendApiUrl}/api/shoppingcart/items`,
+      null,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      },
+    );
+    return data;
+  },
+);
+
 const reducers = {};
 
 const extraReducers = {
@@ -111,6 +127,22 @@ const extraReducers = {
     state.error = null;
   },
   [clearShoppingCartItem.rejected.type]: (
+    state: ShoppingCartState,
+    action: PayloadAction<string | null>,
+  ) => {
+    state.error = action.payload;
+    state.loading = false;
+    state.items = [];
+  },
+  [checkout.pending.type]: (state: ShoppingCartState) => {
+    state.loading = true;
+  },
+  [checkout.fulfilled.type]: (state: ShoppingCartState) => {
+    state.loading = false;
+    state.items = [];
+    state.error = null;
+  },
+  [checkout.rejected.type]: (
     state: ShoppingCartState,
     action: PayloadAction<string | null>,
   ) => {
