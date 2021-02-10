@@ -8,3 +8,4 @@ export * from './error';
 export * from './filter';
 export * from './productList';
 export * from './layoutRoute';
+export * from './paymentCard';

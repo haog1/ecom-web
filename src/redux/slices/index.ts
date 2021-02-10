@@ -2,8 +2,8 @@ import { FeaturedProductsListSlice } from 'redux/slices/featuredProductsList';
 import { ChangeLanguageSlice } from 'redux/slices/language';
 import { ProductSearchSlice } from 'redux/slices/search';
 import { SingleProductDetailsSlice } from 'redux/slices/singleProductDetails';
-
-import { UserLoginSlice } from './login';
+import { UserLoginSlice } from 'redux/slices/login';
+import { shoppingCartSlice } from 'redux/slices/shoppingCart';
 
 export default {
   featuredProductsListReducer: FeaturedProductsListSlice.reducer,
@@ -11,4 +11,5 @@ export default {
   languageReducer: ChangeLanguageSlice.reducer,
   productSearchReducer: ProductSearchSlice.reducer,
   userLoginReducer: UserLoginSlice.reducer,
+  shoppingCartReducer: shoppingCartSlice.reducer,
 };

@@ -10,11 +10,7 @@ const rootReducer = combineReducers(reducers);
 const persistConfig = {
   key: 'root', // namespace
   storage,
-  whitelist: [
-    // save all
-    'userLoginReducer',
-  ],
-  // blacklist: [] // alternative to whitelist
+  whitelist: ['userLoginReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
