@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter,
   Redirect,
@@ -20,10 +21,9 @@ import {
   SignUpPage,
 } from 'pages';
 import { useSelector } from 'redux/hooks';
-import { useDispatch } from 'react-redux';
 import { ChangeLanguageSlice } from 'redux/slices/language';
-import reduxStore from 'redux/store';
 import { getShoppingCartItems } from 'redux/slices/shoppingCart';
+import reduxStore from 'redux/store';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.FC;
